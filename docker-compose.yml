@@ -37,7 +37,6 @@ services:
 
 networks:
   frontend:
-    internal: true
   backend:
     internal: true
 
