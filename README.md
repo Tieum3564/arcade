@@ -17,17 +17,11 @@ docker-compose.yml
 
 ## Déploiement (Docker)
 
-Traefik doit être connecté au réseau Docker externe `elima` et disposer de l'entrypoint
-HTTPS `websecure` et du résolveur de certificats `letsencrypt`. Le DNS de
-`arcade.elima.ovh` doit pointer vers le serveur Traefik.
-Les dossiers `public`, `nginx` et `api` doivent être présents dans
-`/home/debian/game/arcade` sur le serveur.
-
 ```sh
 docker compose up -d --build
 ```
 
-L'arcade est disponible sur `https://arcade.elima.ovh` via Traefik, sans port publié par Compose.
+L'arcade est disponible sur `http://localhost:8080` (ou via un reverse proxy pour HTTPS).
 La base SQLite (`/data/arcade.db`) est conservée dans le volume Docker `arcade-data`.
 
 Sauvegarde de la base :
@@ -119,12 +113,12 @@ docker compose exec api python server.py ban "NomDuTricheur"     # supprime ses 
 docker compose exec api python server.py unban "NomDuTricheur"
 ```
 
-### À faire avant d'exposer le serveur
+### À faire avant d'exposer le serveur sur Internet
 
-- **HTTPS obligatoire** : vérifier le certificat TLS fourni par Traefik, puis activer la ligne
+- **HTTPS obligatoire** : configurer un reverse proxy (Traefik, Nginx, etc.) avec certificat TLS, puis activer la ligne
   `Strict-Transport-Security` dans `nginx/default.conf`.
-- Configurer `set_real_ip_from` / `real_ip_header` pour faire confiance uniquement aux proxys concernés ;
-  sinon tous les visiteurs partagent la même limite.
+- Configurer le proxy pour faire confiance uniquement aux adresses IP autorisées et configurer
+  `set_real_ip_from` / `real_ip_header` dans Nginx ; sinon tous les visiteurs partagent la même limite.
 - N'ouvrir que le port HTTPS sur le pare-feu / la box ; ne jamais exposer le port de l'API.
 - Mettre à jour les images régulièrement : `docker compose pull && docker compose up -d --build`.
 - Sauvegarder la base régulièrement (voir plus haut).

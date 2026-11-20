@@ -2,18 +2,12 @@ services:
   web:
     # Non-root Nginx variant (listens on 8080 inside the container)
     image: nginxinc/nginx-unprivileged:1.27-alpine
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=elima"
-      - "traefik.http.routers.arcade.rule=Host(`arcade.elima.ovh`)"
-      - "traefik.http.routers.arcade.entrypoints=websecure"
-      - "traefik.http.routers.arcade.tls=true"
-      - "traefik.http.routers.arcade.tls.certresolver=letsencrypt"
-      - "traefik.http.services.arcade.loadbalancer.server.port=8080"
+    ports:
+      - "8080:8080"
     volumes:
-      - /home/debian/game/arcade/public:/usr/share/nginx/html:ro
-      - /home/debian/game/arcade/nginx:/etc/nginx/conf.d:ro
-    networks: [elima, backend]
+      - ./public:/usr/share/nginx/html:ro
+      - ./nginx:/etc/nginx/conf.d:ro
+    networks: [backend]
     depends_on:
       - api
     read_only: true
@@ -27,7 +21,7 @@ services:
     restart: unless-stopped
 
   api:
-    build: /home/debian/game/arcade/api
+    build: ./api
     volumes:
       - arcade-data:/data
     # Only reachable through Nginx; no Internet access
@@ -42,8 +36,6 @@ services:
     restart: unless-stopped
 
 networks:
-  elima:
-    external: true
   backend:
     internal: true
 
