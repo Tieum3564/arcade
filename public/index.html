@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#030712">
+<title>Neon Arcade</title>
+<link rel="stylesheet" href="shared/arcade.css">
+<link rel="stylesheet" href="home.css">
+</head>
+<body>
+
+<!-- Login (first visit) -->
+<main id="loginView" class="hidden">
+  <div class="panel">
+    <div class="logo" aria-hidden="true">🕹️</div>
+    <h1>Neon <span class="accent">Arcade</span></h1>
+    <p>Bienvenue ! Choisissez un nom de joueur pour enregistrer vos records.</p>
+    <form id="loginForm" novalidate>
+      <label for="nameInput">Nom de joueur</label>
+      <input id="nameInput" name="name" maxlength="20" autocomplete="nickname" autocapitalize="words" placeholder="Ex. : StarPilot" required>
+      <p id="loginError" class="error" role="alert"></p>
+      <button type="submit">Entrer dans l'arcade ▶</button>
+    </form>
+    <div id="knownPlayers" class="known hidden">
+      <p class="tiny">Ou reprenez un joueur existant :</p>
+      <div id="knownChips" class="chips"></div>
+    </div>
+    <p class="tiny">Aucun mot de passe requis · Les records sont partagés avec tous les joueurs de l'arcade.</p>
+  </div>
+</main>
+
+<!-- Home -->
+<div id="homeView" class="wrap hidden">
+  <header>
+    <h1>Neon <span class="accent">Arcade</span></h1>
+    <div class="player">
+      <span>👤 <b id="playerName"></b></span>
+      <button id="switchBtn" class="secondary small" type="button" title="Changer de joueur">Changer</button>
+    </div>
+  </header>
+
+  <section aria-labelledby="gamesTitle">
+    <div class="section-title"><h2 id="gamesTitle">Choisissez un jeu</h2></div>
+    <div id="gamesGrid" class="games"></div>
+  </section>
+
+  <section class="panel" aria-labelledby="boardTitle" id="leaderboard">
+    <div class="board-head">
+      <h2 id="boardTitle">🏆 Records</h2>
+      <select id="boardSelect" aria-label="Choisir le jeu"></select>
+    </div>
+    <table>
+      <thead><tr><th>#</th><th>Joueur</th><th class="num">Score</th><th class="num hide-sm">Niveau</th><th class="num hide-sm">Date</th></tr></thead>
+      <tbody id="boardBody"></tbody>
+    </table>
+  </section>
+
+  <p class="tiny footer-note">Neon Arcade · Les scores sont enregistrés sur le serveur.</p>
+</div>
+
+<script src="shared/arcade.js"></script>
+<script src="home.js"></script>
+</body>
+</html>

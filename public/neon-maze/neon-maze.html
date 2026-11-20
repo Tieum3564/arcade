@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#030712">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Neon Maze - Neon Arcade</title>
+  <link rel="stylesheet" href="../shared/arcade.css">
+  <link rel="stylesheet" href="game.css">
+</head>
+<body>
+  <main id="gameShell">
+    <header>
+      <div class="brand">Neon <span class="accent">Maze</span></div>
+      <div id="hud" aria-label="Statistiques de la partie">
+        <div class="stat"><span>Score</span><b id="score">0</b></div>
+        <div class="stat"><span>Record</span><b id="high">0</b></div>
+        <div class="stat"><span>Niveau</span><b id="level">1</b></div>
+        <div class="stat"><span>Vies</span><b id="lives">3</b></div>
+      </div>
+      <button id="menuBtn" class="secondary" type="button" aria-label="Ouvrir le menu de pause" disabled>II</button>
+    </header>
+    <div id="playArea">
+      <div id="arena">
+        <canvas id="game" width="608" height="672" aria-label="Labyrinthe Neon Maze. Utilisez les flèches ou le joystick pour vous déplacer."></canvas>
+      </div>
+      <div id="mobileControls" aria-label="Commandes tactiles">
+        <div class="touchGroup">
+          <div id="joystick" role="group" aria-label="Joystick virtuel à quatre directions">
+            <span class="axis horizontal"></span><span class="axis vertical"></span>
+            <div id="joystickKnob"></div>
+          </div>
+        </div>
+        <div class="touchHelp"><b>Glissez pour tourner</b><span>Le déplacement est automatique</span></div>
+      </div>
+    </div>
+    <footer><span id="status" role="status">Prêt à entrer dans le labyrinthe</span><span class="desktopHint">Flèches / ZQSD / WASD · P : pause</span></footer>
+
+    <section id="startOverlay" class="overlay">
+      <div class="panel">
+        <div class="eyebrow">Neon Arcade / Labyrinthe</div>
+        <h1>Neon <span class="accent">Maze</span></h1>
+        <p>Collectez les orbes, semez les sentinelles et prenez le pouvoir avec les super-orbes.</p>
+        <p>Joueur : <b id="playerName" class="accent"></b></p>
+        <div class="instructions">
+          <p><b>Déplacement</b> — flèches, ZQSD ou WASD. Sur mobile, glissez le joystick dans une direction, puis relâchez : le déplacement continue.</p>
+          <p><b>Super-orbes</b> — les gros orbes rendent les sentinelles vulnérables temporairement. Enchaînez les captures pour multiplier les points.</p>
+          <p><b>Objectif</b> — videz le labyrinthe pour passer au niveau suivant. Vous avez trois vies. P ou Échap ouvre la pause.</p>
+        </div>
+        <div class="actions">
+          <button id="startBtn" type="button">Jouer</button>
+          <a class="btn secondary" href="../index.html">Accueil</a>
+        </div>
+        <p class="tiny">Portrait et paysage · Joystick à quatre directions · Records partagés</p>
+      </div>
+    </section>
+
+    <section id="pauseOverlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="pauseTitle">
+      <div class="panel">
+        <h2 id="pauseTitle">En pause</h2>
+        <p>Les sentinelles peuvent attendre.</p>
+        <div class="menuActions">
+          <button id="resumeBtn" type="button">Reprendre</button>
+          <button id="endBtn" class="secondary" type="button">Terminer et enregistrer</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="endOverlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="endTitle">
+      <div class="panel">
+        <h2 id="endTitle">Partie terminée</h2>
+        <p id="endText"></p>
+        <p id="saveInfo" role="status"></p>
+        <div class="actions">
+          <button id="restartBtn" type="button" disabled>Rejouer</button>
+          <a id="homeLink" class="btn secondary" href="../index.html">Accueil</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../shared/arcade.js"></script>
+  <script src="maze.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

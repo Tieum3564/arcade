@@ -1,0 +1,40 @@
+/*
+ * Neon Arcade – shared theme.
+ * Load it in every page BEFORE the page's own stylesheet:
+ *   <link rel="stylesheet" href="../shared/arcade.css">
+ */
+:root {
+  color-scheme: dark;
+
+  --font: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
+  --bg: #030712;
+  --surface: #020617;
+  --text: #e5f7ff;
+  --muted: #bad8e8;
+  --dim: #7393a7;
+  --label: #7dd3fc;
+  --cyan: #22d3ee;
+  --cyan-light: #67e8f9;
+  --panel: #06101ee8;
+  --border: #22d3ee44;
+  --field: #0c1c2b;
+  --focus: #facc15;
+  --danger-text: #fda4af;
+  --glow: 0 0 22px #22d3ee88;
+
+  --btn-bg: linear-gradient(180deg, #0891b2, #0e7490);
+  --btn-secondary-bg: #182436;
+  --btn-secondary-border: #64748b;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--text); font-family: var(--font); }
+
+.accent { color: var(--cyan); }
+.hidden { display: none !important; }
+
+/* Buttons: pages adjust padding, letter-spacing and glow */
+button, .btn { border: 1px solid var(--cyan-light); border-radius: 12px; background: var(--btn-bg); color: white; font: inherit; font-weight: 900; text-transform: uppercase; cursor: pointer; }
+button:hover, .btn:hover { filter: brightness(1.18); }
+button:focus-visible, .btn:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.secondary { border-color: var(--btn-secondary-border); background: var(--btn-secondary-bg); box-shadow: none; }

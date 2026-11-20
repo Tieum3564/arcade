@@ -1,0 +1,63 @@
+/* Neon Maze uses the shared arcade theme. */
+html, body { height: 100%; overflow: hidden; }
+body { height: 100dvh; padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left)); overscroll-behavior: none; }
+#gameShell { position: relative; display: flex; flex-direction: column; width: min(1100px, 100%); height: 100%; margin: auto; overflow: hidden; border: 1px solid #1e4260; border-radius: 18px; background: radial-gradient(ellipse at center, #082f4940, #020617 70%); box-shadow: 0 0 50px #00d9ff20; }
+header { display: flex; align-items: center; gap: 16px; padding: 10px 16px; border-bottom: 1px solid var(--border); }
+.brand { color: white; text-decoration: none; font-size: 19px; font-weight: 900; text-transform: uppercase; white-space: nowrap; text-shadow: var(--glow); }
+#hud { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; flex: 1; }
+.stat { min-width: 0; padding: 5px 10px; background: #020617b8; border: 1px solid #38bdf833; border-radius: 9px; }
+.stat span { display: block; color: var(--label); font-size: 10px; text-transform: uppercase; letter-spacing: .12em; }
+.stat b { display: block; font-size: 17px; font-variant-numeric: tabular-nums; }
+button, .btn { display: inline-block; padding: 12px 20px; letter-spacing: .06em; text-decoration: none; box-shadow: 0 0 24px #06b6d433; }
+button:disabled { opacity: .45; cursor: default; }
+#menuBtn { min-width: 44px; min-height: 44px; padding: 8px; }
+#playArea { display: grid; grid-template-rows: minmax(0, 1fr) auto; flex: 1; min-height: 0; padding: 12px; }
+#arena { position: relative; min-width: 0; min-height: 0; }
+canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; touch-action: none; }
+footer { display: flex; justify-content: space-between; gap: 8px; padding: 7px 16px; border-top: 1px solid var(--border); color: var(--muted); font-size: 11px; }
+#status { color: var(--cyan-light); }
+.overlay { position: absolute; inset: 0; z-index: 10; display: grid; place-items: center; padding: 18px; overflow-y: auto; background: radial-gradient(circle at 50% 40%, #082f4999, #020617ef 75%); text-align: center; }
+.panel { width: min(580px, 100%); max-height: 100%; overflow-y: auto; padding: clamp(18px, 4vw, 36px); border: 1px solid #22d3ee66; border-radius: 22px; background: var(--panel); box-shadow: 0 0 60px #06b6d42b, inset 0 0 40px #0ea5e912; }
+.eyebrow { color: var(--label); text-transform: uppercase; font-size: 10px; letter-spacing: .2em; margin-bottom: 12px; }
+h1, h2 { margin: 0 0 14px; font-size: clamp(32px, 7vw, 60px); line-height: 1; letter-spacing: -.04em; text-transform: uppercase; text-shadow: var(--glow); }
+h2 { font-size: clamp(28px, 5vw, 42px); }
+p { color: var(--muted); line-height: 1.5; }
+.instructions { margin: 20px 0; padding: 4px 14px; text-align: left; border: 1px solid var(--border); border-radius: 12px; background: var(--field); font-size: 13px; }
+.instructions b { color: var(--cyan-light); }
+.actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.menuActions { display: grid; gap: 12px; margin: 24px auto 0; max-width: 310px; }
+.tiny { margin-bottom: 0; color: var(--dim); font-size: 11px; }
+#mobileControls { display: none; }
+#joystick { position: relative; width: 112px; height: 112px; border-radius: 50%; border: 2px solid #67e8f966; background: radial-gradient(circle, #164e6366 0 34%, #082f4999 35% 68%, #0e749066 69%); box-shadow: inset 0 0 24px #22d3ee33, 0 0 20px #06b6d422; touch-action: none; user-select: none; -webkit-user-select: none; }
+.axis { position: absolute; background: #67e8f933; pointer-events: none; }
+.horizontal { top: 50%; left: 12%; right: 12%; height: 1px; }
+.vertical { left: 50%; top: 12%; bottom: 12%; width: 1px; }
+#joystickKnob { position: absolute; width: 46%; height: 46%; left: 27%; top: 27%; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #a5f3fc, #0891b2 58%, #155e75); border: 2px solid #cffafe; box-shadow: 0 0 18px #22d3ee88; pointer-events: none; will-change: transform; }
+.touchHelp { display: grid; gap: 6px; max-width: 150px; color: var(--muted); font-size: 11px; text-align: center; }
+.touchHelp b { color: var(--cyan-light); }
+@media (pointer: coarse), (max-width: 720px) {
+  body { padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
+  #gameShell { border: 0; border-radius: 0; }
+  header { gap: 8px; padding: 6px 8px; }
+  .brand { display: none; }
+  #hud { gap: 4px; }
+  .stat { padding: 4px 6px; }
+  .stat span { font-size: 8px; }
+  .stat b { font-size: 14px; }
+  #playArea { padding: 6px 8px 0; }
+  #mobileControls { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 8px 18px; }
+  .desktopHint { display: none; }
+  footer { padding: 5px 10px; min-height: 25px; }
+  .overlay { padding: 12px; }
+  .panel { padding: 20px; }
+}
+@media (orientation: landscape) and (pointer: coarse), (orientation: landscape) and (max-width: 720px) {
+  #playArea { grid-template-columns: 128px minmax(0, 1fr) 128px; grid-template-rows: minmax(0, 1fr); padding: 4px; }
+  #arena { grid-column: 2; grid-row: 1; }
+  #mobileControls { display: contents; }
+  .touchGroup { grid-column: 1; grid-row: 1; place-self: center; }
+  .touchHelp { grid-column: 3; grid-row: 1; place-self: center; padding: 10px; }
+  .panel { padding: 16px 22px; }
+  h1 { font-size: 36px; }
+  .instructions { margin: 12px 0; font-size: 12px; }
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#030712">
+<title>Neon Space Invaders</title>
+<link rel="stylesheet" href="../shared/arcade.css">
+<link rel="stylesheet" href="game.css">
+</head>
+<body>
+<div id="gameShell">
+ <div id="gameViewport">
+  <canvas id="game" width="960" height="600" aria-label="Space Invaders game area"></canvas>
+  <div id="hud" aria-live="polite">
+    <div class="stat"><span class="label">Score</span><span id="score" class="value">0</span></div>
+    <div class="stat"><span class="label">High</span><span id="high" class="value">0</span></div>
+    <div class="stat"><span class="label">Level</span><span id="level" class="value">1</span></div>
+    <div class="stat"><span class="label">Lives</span><span id="lives" class="value">3</span></div>
+    <div class="stat"><span class="label">Weapon</span><span id="weapon" class="value">Pulse</span></div>
+  </div>
+  <div id="bossWrap"><div id="bossName">DREADNOUGHT</div><div id="bossBar"></div></div>
+  <div id="toast"></div>
+  <button id="gameMenuBtn" type="button" aria-label="Open game menu" title="Menu">☰</button>
+ </div>
+  <div id="gameMenuOverlay" class="overlay hidden">
+    <div class="panel">
+      <h2>Game Menu</h2>
+      <p>Game paused</p>
+      <div class="menuActions">
+        <button id="menuResumeBtn" type="button">Resume</button>
+        <button id="menuRestartBtn" type="button">Restart Game</button>
+        <button id="menuEndBtn" class="danger" type="button">End Game</button>
+        <button id="menuHomeBtn" class="secondary" type="button">⌂ Save &amp; Home</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="startOverlay" class="overlay">
+    <div class="panel" id="mainMenu">
+      <h1>Neon <span class="accent">Invaders</span></h1>
+      <p>Defend the sector through increasingly dangerous invasion waves and a boss battle every five levels.</p>
+      <p class="tiny">Pilot: <b id="pilotName" class="accent"></b></p>
+      <button id="startBtn" type="button">Start Game</button>
+      <button id="instructionsBtn" class="secondary" type="button">Instructions</button>
+      <button class="secondary homeBtn" type="button">⌂ Home</button>
+      <p class="tiny">Mobile ready · Landscape recommended on iPhone · Scores saved to the arcade leaderboard</p>
+    </div>
+    <div class="panel hidden" id="instructionsPanel">
+      <h2>Instructions</h2>
+      <p>Destroy every invader before the formation reaches the ground line – each invasion or collision with an invader costs a life. Asteroids now emerge from the distance and grow as they approach. Move in four directions to dodge them and defeat the Dreadnought boss every fifth level.</p>
+      <div class="controlsInfo">
+        <div class="key"><b>Move</b><br>← ↑ ↓ → or WASD</div>
+        <div class="key"><b>Fire</b><br>Space</div>
+        <div class="key"><b>Pause/Menu</b><br>☰ or P / Esc</div>
+      </div>
+      <p><b>Power-ups:</b> <span class="pu-rapid">R</span> Rapid fire · <span class="pu-spread">S</span> Spread shot · <span class="pu-shield">D</span> Shield · <span class="pu-life">+</span> Extra life</p>
+      <p><b>Flight:</b> moving forward increases your closing speed with incoming obstacles; moving backward reduces it. Distant asteroids cannot hit you until they reach your flight plane.</p><p><b>Scoring:</b> keep destroying enemies to build your combo multiplier. Bosses award a large score bonus.</p>
+      <p class="tiny">iPhone/iPad/Android: landscape is recommended. Use the virtual joystick and FIRE button. Drag the stick in any direction for smooth 360° movement, and fire simultaneously. Defensive barriers absorb both enemy and player shots.</p>
+      <button id="backBtn" type="button">Back to Menu</button>
+    </div>
+  </div>
+
+  <div id="pauseOverlay" class="overlay hidden">
+    <div class="panel"><h2>Paused</h2><p>The fleet is holding position.</p><button id="resumeBtn" type="button">Resume</button></div>
+  </div>
+
+  <div id="gameOverOverlay" class="overlay hidden">
+    <div class="panel"><h2 id="endTitle">Mission failed</h2><p id="endText"></p><button id="restartBtn" type="button">Play again</button><button class="secondary homeBtn" type="button">⌂ Home</button></div>
+  </div>
+
+  <div id="mobileControls" aria-label="Touch controls">
+    <div class="touchGroup"><div id="joystick" role="application" aria-label="Virtual movement joystick"><div id="joystickKnob"></div></div></div>
+    <div class="touchGroup"><button class="touchBtn fire" id="fireBtn" type="button">Fire</button></div>
+  </div>
+</div>
+<script src="../shared/arcade.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
