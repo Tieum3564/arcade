@@ -7,7 +7,7 @@ services:
     volumes:
       - ./public:/usr/share/nginx/html:ro
       - ./nginx:/etc/nginx/conf.d:ro
-    networks: [backend]
+    networks: [frontend, backend]
     depends_on:
       - api
     read_only: true
@@ -36,6 +36,8 @@ services:
     restart: unless-stopped
 
 networks:
+  frontend:
+    internal: true
   backend:
     internal: true
 
